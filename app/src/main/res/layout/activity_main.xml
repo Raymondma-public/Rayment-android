@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="0dp"
+    >
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:src="@mipmap/logo"
+        app:backgroundTint="@android:color/background_light"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@mipmap/logo" />
+
+
+    <EditText
+        android:id="@+id/dollorET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="488dp"
+        android:textSize="25dp"
+        android:text="30.00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <EditText
+        android:id="@+id/idET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="488dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toEndOf="@+id/dollorET"
+        android:textSize="25dp"
+        android:text="98765432"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+            android:id="@+id/icon1"
+            android:layout_margin="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_margin="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/icon1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon2"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_margin="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon3"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
+
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_margin="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/icon3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon4"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/topCardView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="0dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+
+                android:adjustViewBounds="true"
+                android:foregroundGravity="center"
+                android:scaleType="fitCenter"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@mipmap/refresh"
+                tools:srcCompat="@mipmap/refresh" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:foregroundGravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/meifoo2"
+            android:visibility="visible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/balanceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="60dp"
+        android:elevation="5dp"
+        android:text="Balance:"
+        android:textColor="@color/grey1"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topCardView"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp"
+        android:text="HKD 50.00"
+        app:layout_constraintLeft_toLeftOf="@id/balanceTV"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTV"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="252dp"
+        android:textColor="@color/grey1"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/promoCV"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/topCardView">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/promoteTV"
+            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/smallIcon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="16dp"
+            android:text="Spend more to Raymond and he will be happy!"
+            android:scrollHorizontally="false">
+
+        </TextView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/promoteTV"
+            app:layout_constraintLeft_toLeftOf="@id/promoteTV"
+            android:background="#E11584"
+            android:textColor="#FFFFFF"
+            android:padding="0dp"
+            android:text="Discover"
+            android:textSize="10dp"
+            app:cornerRadius="20dp"
+            />
+        <ImageView
+            android:id="@+id/smallIcon"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:foreground="@drawable/meifoo"
+            android:foregroundGravity="center"
+            android:src="@drawable/meifoo"
+            android:visibility="visible"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/moneyImg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:adjustViewBounds="true"
+        android:foregroundGravity="center"
+        android:scaleType="fitCenter"
+
+        android:src="@drawable/money"
+        android:visibility="visible"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.562" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:scrollHorizontally="false"
+        android:text="This is empty, for now..."
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moneyImg"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:scrollHorizontally="false"
+        android:text="Start paying and requesting money or adding some friends and you'll see their activity here."
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv1"
+   />
+</androidx.constraintlayout.widget.ConstraintLayout>
