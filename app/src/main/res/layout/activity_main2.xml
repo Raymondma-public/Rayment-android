@@ -6,16 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    tools:openDrawer="start"
     tools:context=".MainActivity2"
-    tools:openDrawer="start">
+    >
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:padding="0dp"
         tools:context=".MainActivity2"
+        android:padding="0dp"
+        android:background="#FFFFFF"
 
         >
 
@@ -42,8 +45,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="488dp"
-            android:text="30.00"
             android:textSize="25dp"
+            android:text="30.00"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,12 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="488dp"
-            android:text="98765432"
-            android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.467"
             app:layout_constraintStart_toEndOf="@+id/dollorET"
+            android:textSize="25dp"
+            android:text="98765432"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.39" />
 
@@ -70,55 +73,52 @@
             android:layout_height="70dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
+            app:layout_constraintEnd_toEndOf="parent" >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <ImageView
                     android:id="@+id/icon1"
+                    android:layout_margin="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="20dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:src="@drawable/icon1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
                 <ImageView
                     android:id="@+id/icon2"
+                    android:layout_margin="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/icon1"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="20dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:src="@drawable/icon2"
-                    app:layout_constraintLeft_toRightOf="@id/icon1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
 
                 <ImageView
                     android:id="@+id/icon3"
+                    android:layout_margin="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="20dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:src="@drawable/icon3"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
 
                 <ImageView
                     android:id="@+id/icon4"
+                    android:layout_margin="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/icon3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="20dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:src="@drawable/icon4"
-                    app:layout_constraintRight_toLeftOf="@id/icon3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -129,10 +129,10 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
 
-            android:padding="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="0dp"
+            >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -158,12 +158,12 @@
                     android:adjustViewBounds="true"
                     android:foregroundGravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/meifoo2"
+
                     android:visibility="visible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <!--                    android:src="@drawable/meifoo2"-->
         </androidx.cardview.widget.CardView>
 
 
@@ -180,36 +180,22 @@
             app:layout_constraintBottom_toBottomOf="@+id/topCardView"
             app:layout_constraintRight_toRightOf="parent" />
 
+
         <TextView
-            android:id="@+id/currTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:elevation="5dp"
-            android:text="HKD"
-            android:textColor="@color/grey1"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:text="HKD 50.00"
             app:layout_constraintLeft_toLeftOf="@id/balanceTV"
             app:layout_constraintTop_toBottomOf="@+id/balanceTV"
             tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="252dp" />
-
-        <TextView
-            android:id="@+id/accountBalanceTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:elevation="5dp"
-            android:text="50.00"
+            tools:layout_editor_absoluteY="252dp"
             android:textColor="@color/grey1"
-            android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/currTV"
-            app:layout_constraintTop_toBottomOf="@+id/balanceTV"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="252dp" />
+            android:textSize="20dp"/>
+
+
 
 
         <androidx.cardview.widget.CardView
@@ -219,22 +205,20 @@
             android:layout_margin="20dp"
             android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/topCardView">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <TextView
                     android:id="@+id/promoteTV"
+                    android:layout_margin="20dp"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:scrollHorizontally="false"
-                    android:text="Spend more to Raymond and he will be happy!"
-                    android:textSize="16dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/smallIcon"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:textSize="16dp"
+                    android:text="Spend more to Raymond and he will be happy!"
+                    android:scrollHorizontally="false">
 
                 </TextView>
 
@@ -242,25 +226,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/promoteTV"
+                    app:layout_constraintLeft_toLeftOf="@id/promoteTV"
                     android:background="#E11584"
+                    android:textColor="#FFFFFF"
                     android:padding="0dp"
                     android:text="Discover"
-                    android:textColor="#FFFFFF"
                     android:textSize="10dp"
                     app:cornerRadius="20dp"
-                    app:layout_constraintLeft_toLeftOf="@id/promoteTV"
-                    app:layout_constraintTop_toBottomOf="@id/promoteTV" />
-
+                    />
                 <ImageView
                     android:id="@+id/smallIcon"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
 
-                    android:adjustViewBounds="true"
                     android:foregroundGravity="center"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/meifoo"
                     android:visibility="visible"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -292,11 +276,11 @@
             android:scrollHorizontally="false"
             android:text="This is empty, for now..."
             android:textSize="18dp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/moneyImg" />
+            app:layout_constraintTop_toBottomOf="@+id/moneyImg"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv2"
@@ -310,7 +294,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv1" />
+            app:layout_constraintTop_toBottomOf="@+id/tv1"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -318,9 +303,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FFFFFF"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main2"
+        android:background="#FFFFFF"
         app:menu="@menu/activity_main2_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
