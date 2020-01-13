@@ -1,11 +1,25 @@
 package com.example.rayment.model
 
-class Account(val id: Int,val  name: String,val email:String,val currencyAccountMap: Map<String,CurrencyAccount>) {
-//    var id=-1
-//    get
-//    var name=""
-//    var email=""
-//    var currencyAccountMap=null
+import java.time.LocalDateTime
+
+
+class Account {
+    var id: Int? = null
+    var phone: String? = null
+    var name: String? = null
+    var email: String? = null
+    var password: String? = null
+//    var createDate: LocalDateTime? = null
+
+    private var currencyAccountList: MutableList<CurrencyAccount>? = null
+
+    fun getCurrencyAccountList(): List<CurrencyAccount>? {
+        return currencyAccountList
+    }
+
+    fun setCurrencyAccountList(currencyAccountList: MutableList<CurrencyAccount>) {
+        this.currencyAccountList = currencyAccountList
+    }
 
 
 }

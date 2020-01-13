@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.View
 
 class MainActivity2 : AppCompatActivity() {
 
@@ -45,6 +46,8 @@ class MainActivity2 : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
     }
+
+
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.

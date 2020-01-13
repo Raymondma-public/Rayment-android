@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity2"
+    tools:context=".MainActivity"
     tools:openDrawer="start">
 
 
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="#FFFFFF"
         android:padding="0dp"
-        tools:context=".MainActivity2"
+        tools:context=".MainActivity"
 
         >
 
@@ -32,37 +32,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:src="@mipmap/logo" />
-
+            android:onClick="ct"
+            />
 
         <EditText
             android:id="@+id/dollorET"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="85dp"
+            android:layout_height="52dp"
             android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
             android:layout_marginTop="488dp"
-            android:text="30.00"
+            android:hint="$"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.39" />
 
+
         <EditText
-            android:id="@+id/idET"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/phoneET"
+            android:layout_width="236dp"
+            android:layout_height="55dp"
             android:layout_marginTop="488dp"
-            android:text="98765432"
+            android:hint="Phone"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.467"
+            app:layout_constraintHorizontal_bias="0.739"
             app:layout_constraintStart_toEndOf="@+id/dollorET"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39" />
-
+            app:layout_constraintVertical_bias="0.387" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
