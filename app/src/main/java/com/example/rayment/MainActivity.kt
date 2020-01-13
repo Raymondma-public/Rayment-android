@@ -16,9 +16,11 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.rayment.model.Account
 import com.example.rayment.model.ResponseDTO
+import com.example.rayment.spinner.MenuAccountSpinnerAdapter
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.account_spinner_item.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 import java.net.URL
@@ -36,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     var handlerUpdateSpinner: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message?) {
-            var emailList = msg?.obj as ArrayList<String>;
-            updateSpinnerData(emailList, accountSpinner)
+            var accountList = msg?.obj as ArrayList<Account>;
+            updateSpinnerData(accountList, accountSpinner)
         }
     }
 
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     var handlerShowToast: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message?) {
-            Toast.makeText(Application.ctx, msg?.obj as String?, Toast.LENGTH_SHORT)
+            Toast.makeText(Application.ctx, msg?.obj as String?, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -83,7 +85,9 @@ class MainActivity : AppCompatActivity() {
 
 
                 var accountBalanceTV = findViewById<TextView>(R.id.accountBalanceTV)
-                var email = accountSpinner?.selectedItem.toString()
+                var view = accountSpinner?.selectedView
+                var emailTV=view?.findViewById<TextView>(R.id.emailTV)
+                var email=emailTV?.text.toString()
                 currentEmail = email;
                 Thread {
                     var acId: Int? = getAccountIdByEmail(email)
@@ -181,45 +185,55 @@ class MainActivity : AppCompatActivity() {
 
                 val accounts: List<Account> =
                     Gson().fromJson(Gson().toJson(responseDTO.obj), listType);
-                val emailList = accounts.map { ac -> ac.email };
+
 
                 val message = obtain();
-                message.obj = emailList as Object
+                message.obj = accounts as Object
                 handlerUpdateSpinner.sendMessage(message)
 
 
             },
             Response.ErrorListener {
                 //                it.networkResponse.statusCode
-                Toast.makeText(this, "Error !!! ", Toast.LENGTH_SHORT)
-                Log.e("", "Ge")
+                Toast.makeText(this, "Error !!! ", Toast.LENGTH_SHORT).show()
+                Log.e("", "error")
             }
         )
         queue?.add(stringReq)
     }
 
     private fun updateSpinnerData(
-        emailList: ArrayList<String>,
+        accountList: ArrayList<Account>,
         accountSpinner: Spinner?
     ) {
-        var dataAdapter =
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, emailList)
+        var dataAdapter = MenuAccountSpinnerAdapter(this, accountList)
         accountSpinner?.adapter = dataAdapter
         dataAdapter.notifyDataSetChanged()
     }
 
     fun ct(view: View) {
-
         Thread {
             Log.d("MyTag", amountET.text.toString())
-            var amount = amountET.text.toString().toDouble()
-            var phone = phoneET.text.toString()
+            var amount: Double? = null
+            var phone: String? = null
+            try {
+                amount = amountET.text.toString().toDouble()
+
+            } catch (e: NumberFormatException) {
+                Log.e("MyTag", e.message, e)
+                return@Thread
+            }
+            try {
+                phone = phoneET.text.toString()
+            } catch (e: NumberFormatException) {
+                Log.e("MyTag", e.message, e)
+                return@Thread
+            }
             var currentAcId: Int? = getAccountIdByEmail(currentEmail.toString())
             var toAccountId: Int? = getAccountIdByPhone(phone.toString())
 
             Log.d("MyTag", "currentEmail.toString(): " + currentEmail.toString())
             Log.d("MyTag", "currentAcId: " + currentAcId)
-
 
             val url: String =
                 """http://192.168.1.194:8080/payment/CT?from_acc_id=${currentAcId}&to_acc_id=${toAccountId}&curr=HKD&amount=${amount}"""
@@ -230,7 +244,7 @@ class MainActivity : AppCompatActivity() {
                     val responseDTO = Gson().fromJson(response, ResponseDTO::class.java);
 
 
-                    Toast.makeText(this, responseDTO.message, Toast.LENGTH_SHORT)
+                    Toast.makeText(this, responseDTO.message, Toast.LENGTH_SHORT).show()
                     Thread {
                         //Update UI Balance
                         var acId: Int? = getAccountIdByEmail(currentEmail.toString())
@@ -239,7 +253,9 @@ class MainActivity : AppCompatActivity() {
                 },
                 Response.ErrorListener {
                     //                it.networkResponse.statusCode
-                    Toast.makeText(this, "Error !!! ", Toast.LENGTH_SHORT)
+                    var jsonString:String=String(it.networkResponse.data)
+                    val responseDTO = Gson().fromJson(jsonString, ResponseDTO::class.java);
+                    Toast.makeText(this, responseDTO.message, Toast.LENGTH_SHORT).show()
                     Log.e("", "Ge")
                 }
             )

@@ -46,7 +46,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39" />
+            app:layout_constraintVertical_bias="0.39"
+            android:maxLines="1"
+            android:inputType="numberDecimal"/>
 
 
         <EditText
@@ -61,7 +63,10 @@
             app:layout_constraintHorizontal_bias="0.739"
             app:layout_constraintStart_toEndOf="@+id/dollorET"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.387" />
+            app:layout_constraintVertical_bias="0.387"
+            android:maxLines="1"
+            android:inputType="textPhonetic"
+            />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
