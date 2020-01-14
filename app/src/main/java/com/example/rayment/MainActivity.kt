@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestAndUpdateBalance(acId: Int?) {
         val url: String =
-            """http://192.168.1.194:8080/payment/balance?account_id=${acId}&curr=HKD"""
+            """${getResources().getString(R.string.base_url)}/payment/balance?account_id=${acId}&curr=HKD"""
         Log.d("MyTag", url)
         try {
             var response = URL(url).readText()
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     private fun getAccountIdByEmail(email: String): Int? {
 
         val urlGetId: String =
-            """http://192.168.1.194:8080/account/getAccountId?type=email&value=${URLEncoder.encode(
+            """${getResources().getString(R.string.base_url)}/account/getAccountId?type=email&value=${URLEncoder.encode(
                 email,
                 "UTF-8"
             )}"""
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAccountIdByPhone(phone: String): Int? {
         val urlGetId: String =
-            """http://192.168.1.194:8080/account/getAccountId?type=phone&value=${URLEncoder.encode(
+            """${getResources().getString(R.string.base_url)}/account/getAccountId?type=phone&value=${URLEncoder.encode(
                 phone,
                 "UTF-8"
             )}"""
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateSpinner() {
 
         Log.d("MyTag", "updateSpinner")
-        val url: String = "http://192.168.1.194:8080/account/all"
+        val url: String = "${getResources().getString(R.string.base_url)}/account/all"
 
         val stringReq = StringRequest(
             Request.Method.GET, url,
@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("MyTag", "currentAcId: " + currentAcId)
 
             val url: String =
-                """http://192.168.1.194:8080/payment/CT?from_acc_id=${currentAcId}&to_acc_id=${toAccountId}&curr=HKD&amount=${amount}"""
+                """${getResources().getString(R.string.base_url)}/payment/CT?from_acc_id=${currentAcId}&to_acc_id=${toAccountId}&curr=HKD&amount=${amount}"""
 
             val stringReq = StringRequest(
                 Request.Method.PUT, url,

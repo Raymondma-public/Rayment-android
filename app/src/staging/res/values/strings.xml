@@ -1,0 +1,3 @@
+<resources>
+    <string name="base_url">http://192.168.1.230:30083</string>
+</resources>

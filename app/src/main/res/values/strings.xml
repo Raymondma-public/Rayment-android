@@ -14,4 +14,6 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <string name="base_url">http://iehha01.f3322.org:30083</string>
 </resources>

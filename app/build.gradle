@@ -7,6 +7,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias = 'key0'
+            storeFile file('C:\\Users\\heihe\\AndroidStudioProjects\\Rayment\\release.jks')
+            storePassword 'keystore_P@ssw0rd'
+            keyPassword 'key_P@ssw0rd'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -18,9 +26,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            //buildConfigField "String", 'BASE_URL', "http://192.168.1.194:8080"
+            applicationIdSuffix ".debug"
+        }
         release {
+            //buildConfigField "String", 'BASE_URL', "http://192.168.1.230:30083"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        staging {
+            debuggable = true
         }
     }
 }
