@@ -9,11 +9,14 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.ClientError
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.toolbox.RequestFuture
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.rayment.exceptions.BizException
 import com.example.rayment.model.Account
 import com.example.rayment.model.ResponseDTO
 import com.example.rayment.spinner.MenuAccountSpinnerAdapter
@@ -25,6 +28,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 import java.net.URL
 import java.net.URLEncoder
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.Future
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -83,12 +89,17 @@ class MainActivity : AppCompatActivity() {
                 id: Long
             ) {
 
-
                 var accountBalanceTV = findViewById<TextView>(R.id.accountBalanceTV)
                 var view = accountSpinner?.selectedView
-                var emailTV=view?.findViewById<TextView>(R.id.emailTV)
-                var email=emailTV?.text.toString()
+                var emailTV = view?.findViewById<TextView>(R.id.emailTV)
+                var email = (emailTV?.text ?: "").toString()
+                Log.d("ManiActivity", """email: ${email}""");
+                if (email?.isEmpty()) {
+                    return;
+                }
+
                 currentEmail = email;
+
                 Thread {
                     var acId: Int? = getAccountIdByEmail(email)
                     requestAndUpdateBalance(acId)
@@ -108,67 +119,75 @@ class MainActivity : AppCompatActivity() {
         val url: String =
             """${getResources().getString(R.string.base_url)}/payment/balance?account_id=${acId}&curr=HKD"""
         Log.d("MyTag", url)
-        try {
-            var response = URL(url).readText()
-            val responseDTO = Gson().fromJson(response, ResponseDTO::class.java)
+        val stringReq = StringRequest(
+            Request.Method.GET, url,
+            Response.Listener<String> { response ->
+                val responseDTO = Gson().fromJson(response, ResponseDTO::class.java)
 
 
-            val message = obtain();
-            message.obj = responseDTO.obj
-            handlerUpdateBalance.sendMessage(message)
+                val message = obtain();
+                message.obj = responseDTO.obj
+                handlerUpdateBalance.sendMessage(message)
 
-        } catch (e: Exception) {
-            Log.e("MyTag", "error here", e)
-            val message = obtain();
-            message.obj = 0
-            handlerUpdateBalance.sendMessage(message)
-
-            val errorMessage = obtain();
-            errorMessage.obj = e.message
-            handlerShowToast.sendMessage(errorMessage)
-        }
+            },
+            Response.ErrorListener {
+                var jsonString: String = String(it.networkResponse.data)
+                val responseDTO = Gson().fromJson(jsonString, ResponseDTO::class.java);
+                Toast.makeText(this, responseDTO.message, Toast.LENGTH_SHORT).show()
+                Log.e("", """${responseDTO.message}""")
+                val message = obtain();
+                message.obj = 0.0
+                handlerUpdateBalance.sendMessage(message)
+            })
+        queue?.add(stringReq)
     }
 
     private fun getAccountIdByEmail(email: String): Int? {
-
-        val urlGetId: String =
+        val url: String =
             """${getResources().getString(R.string.base_url)}/account/getAccountId?type=email&value=${URLEncoder.encode(
                 email,
                 "UTF-8"
             )}"""
-        Log.d("MyTag", urlGetId)
 
         var acId: Int? = null;
-        try {
-            var response = URL(urlGetId).readText()
-            val responseDTO = Gson().fromJson(response, ResponseDTO::class.java)
-            acId = responseDTO.obj.toString().toDouble().toInt()
-            Log.d("MyTag", """${acId} acId""")
-        } catch (e: Exception) {
-            Log.e("MyTag", "error here", e)
-        }
-        return acId
+        var responseString = RequestFuture.newFuture<String>()
+
+
+        var request: StringRequest = StringRequest(url, responseString, responseString);
+        queue?.add(request);
+
+
+        var response: String? = responseString?.get(3, TimeUnit.SECONDS)
+        val responseDTO = Gson().fromJson(response, ResponseDTO::class.java)
+        acId = responseDTO.obj.toString().toDouble().toInt()
+        Log.d("MyTag", """${acId} acId""")
+
+
+        return acId;
     }
 
     private fun getAccountIdByPhone(phone: String): Int? {
-        val urlGetId: String =
+        val url: String =
             """${getResources().getString(R.string.base_url)}/account/getAccountId?type=phone&value=${URLEncoder.encode(
                 phone,
                 "UTF-8"
             )}"""
-        Log.d("MyTag", urlGetId)
+
 
         var acId: Int? = null;
-        try {
-            var response = URL(urlGetId).readText()
-            Log.d("MyTag", """response""")
-            val responseDTO = Gson().fromJson(response, ResponseDTO::class.java)
-            acId = responseDTO.obj.toString().toDouble().toInt()
-            Log.d("MyTag", """${acId} acId""")
-        } catch (e: Exception) {
-            Log.e("MyTag", "error here", e)
-        }
-        return acId
+        var responseString = RequestFuture.newFuture<String>()
+
+
+        var request: StringRequest = StringRequest(url, responseString, responseString);
+        queue?.add(request);
+
+
+        var response: String? = responseString?.get(3, TimeUnit.SECONDS)
+        val responseDTO = Gson().fromJson(response, ResponseDTO::class.java)
+        acId = responseDTO.obj.toString().toDouble().toInt()
+        Log.d("MyTag", """${acId} acId""")
+
+        return acId;
     }
 
     private fun updateSpinner() {
@@ -191,6 +210,14 @@ class MainActivity : AppCompatActivity() {
                 message.obj = accounts as Object
                 handlerUpdateSpinner.sendMessage(message)
 
+                Log.d("MainActivity", """accounts.size:  ${accounts.size}""")
+                if (accounts?.size > 0 && !((accounts[0].email?.isBlank()) ?: false)) {
+                    Thread {
+                        var acId: Int? = getAccountIdByEmail(accounts[0].email!!)
+                        currentEmail = accounts[0].email!!
+                        requestAndUpdateBalance(acId)
+                    }.start()
+                }
 
             },
             Response.ErrorListener {
@@ -229,9 +256,34 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MyTag", e.message, e)
                 return@Thread
             }
-            var currentAcId: Int? = getAccountIdByEmail(currentEmail.toString())
-            var toAccountId: Int? = getAccountIdByPhone(phone.toString())
 
+            var currentAcId: Int? = null
+            var toAccountId: Int? = null
+            try {
+                currentAcId = getAccountIdByEmail(currentEmail.toString())
+                toAccountId = getAccountIdByPhone(phone.toString())
+            } catch (e: ExecutionException) {
+                var rootCause: Throwable = e;
+                while (rootCause.cause != null && rootCause.cause != rootCause) {
+                    rootCause = rootCause.cause!!
+                }
+                if (rootCause is ClientError) {
+
+                    var jsonString: String = String(rootCause.networkResponse.data)
+                    val responseDTO = Gson().fromJson(jsonString, ResponseDTO::class.java);
+                    val message = obtain();
+                    message.obj = responseDTO.message
+                    handlerShowToast.sendMessage(message)
+
+
+
+                    Log.e("", """${responseDTO.message}""")
+
+//                    throw BizException(responseDTO.message);
+                }
+                Log.d("", e.message, e)
+                return@Thread
+            }
             Log.d("MyTag", "currentEmail.toString(): " + currentEmail.toString())
             Log.d("MyTag", "currentAcId: " + currentAcId)
 
@@ -253,10 +305,10 @@ class MainActivity : AppCompatActivity() {
                 },
                 Response.ErrorListener {
                     //                it.networkResponse.statusCode
-                    var jsonString:String=String(it.networkResponse.data)
+                    var jsonString: String = String(it.networkResponse.data)
                     val responseDTO = Gson().fromJson(jsonString, ResponseDTO::class.java);
                     Toast.makeText(this, responseDTO.message, Toast.LENGTH_SHORT).show()
-                    Log.e("", "Ge")
+                    Log.e("", """${responseDTO.message}""")
                 }
             )
             queue?.add(stringReq)
@@ -264,4 +316,6 @@ class MainActivity : AppCompatActivity() {
 
         }.start()
     }
+
+
 }
