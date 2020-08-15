@@ -35,38 +35,53 @@
             android:onClick="ct"
             />
 
+
         <EditText
             android:id="@+id/dollorET"
-            android:layout_width="85dp"
+            android:layout_width="80dp"
             android:layout_height="52dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="488dp"
             android:hint="$"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39"
-            android:maxLines="1"
-            android:inputType="numberDecimal"/>
+            app:layout_constraintVertical_bias="0.45" />
 
+        <EditText
+            android:id="@+id/toBankET"
+            android:layout_width="80dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="488dp"
+            android:hint="Bank"
+            android:inputType="textPhonetic"
+            android:maxLines="1"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/phoneET"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/dollorET"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.457" />
 
         <EditText
             android:id="@+id/phoneET"
-            android:layout_width="236dp"
+            android:layout_width="200dp"
             android:layout_height="55dp"
             android:layout_marginTop="488dp"
             android:hint="Phone"
+            android:inputType="textPhonetic"
+            android:maxLines="1"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.739"
-            app:layout_constraintStart_toEndOf="@+id/dollorET"
+            app:layout_constraintHorizontal_bias="0.82"
+            app:layout_constraintStart_toEndOf="@+id/toBankET"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.387"
-            android:maxLines="1"
-            android:inputType="textPhonetic"
-            />
+            app:layout_constraintVertical_bias="0.457" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"

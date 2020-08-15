@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var amountET: EditText
     private lateinit var phoneET: EditText
-
+    private lateinit var toBankET: EditText
     var currentEmail: String? = null;
     var queue: RequestQueue? = null
     var accountSpinner: Spinner? = null
@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         navigationView = findViewById(R.id.nav_view)
         amountET = findViewById(R.id.dollorET) as EditText
         phoneET = findViewById(R.id.phoneET) as EditText
+        toBankET=findViewById(R.id.toBankET) as EditText
         var headerView: View = navigationView.getHeaderView(0)
         accountSpinner = headerView.findViewById(R.id.accountSpinner)
         Log.d("MyTag", "Start")
@@ -222,8 +223,9 @@ class MainActivity : AppCompatActivity() {
             },
             Response.ErrorListener {
                 //                it.networkResponse.statusCode
-                Toast.makeText(this, "Error !!! ", Toast.LENGTH_SHORT).show()
-                Log.e("", "error")
+
+                Toast.makeText(this, "Error !!! "+it.message, Toast.LENGTH_SHORT).show()
+                Log.e("", "error "+it.message)
             }
         )
         queue?.add(stringReq)
@@ -259,9 +261,11 @@ class MainActivity : AppCompatActivity() {
 
             var currentAcId: Int? = null
             var toAccountId: Int? = null
+            var toBank:String
             try {
                 currentAcId = getAccountIdByEmail(currentEmail.toString())
                 toAccountId = getAccountIdByPhone(phone.toString())
+                toBank=toBankET.text.toString()
             } catch (e: ExecutionException) {
                 var rootCause: Throwable = e;
                 while (rootCause.cause != null && rootCause.cause != rootCause) {
@@ -288,7 +292,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("MyTag", "currentAcId: " + currentAcId)
 
             val url: String =
-                """${getResources().getString(R.string.base_url)}/payment/CT?from_acc_id=${currentAcId}&to_acc_id=${toAccountId}&curr=HKD&amount=${amount}"""
+                """${getResources().getString(R.string.base_url)}/payment/CT?from_acc_id=${currentAcId}&to_bank=${toBank}&to_acc_id=${toAccountId}&curr=HKD&amount=${amount}"""
 
             val stringReq = StringRequest(
                 Request.Method.PUT, url,

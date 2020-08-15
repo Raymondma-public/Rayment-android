@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".Application"
+        android:usesCleartextTraffic="true"
         >
 
         <activity
